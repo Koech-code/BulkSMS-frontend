@@ -30,7 +30,7 @@ const Parents = () => {
             await axios.post("http://localhost:443/api/parent/register", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    Authorization: `Token  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzeXN0ZW1AYm9zc2tpZHMubmV0IiwiaWF0IjoxNjgzNDA4ODIwLCJleHAiOjE2ODM0NTg4MjB9.o4eTjAZkEEQ-wOmwrUaboZPlw8fJ9Lv5IjF0XwCjOUU`,
+                    Authorization: `Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzeXN0ZW1AYm9zc2tpZHMubmV0IiwiaWF0IjoxNjgzNDA4ODIwLCJleHAiOjE2ODM0NTg4MjB9.o4eTjAZkEEQ-wOmwrUaboZPlw8fJ9Lv5IjF0XwCjOUU`,
                 },
             });
             console.log(formData)
