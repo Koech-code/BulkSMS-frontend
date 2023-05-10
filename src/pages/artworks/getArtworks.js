@@ -14,7 +14,7 @@ const ArtworksCard = () => {
 
     const navigateArtCheckout = () => {
         // 👇️ navigate to /checkout
-        navigate("/checkout-art");
+        navigate("/register");
     };
 
     const openImage = (id) => {
@@ -56,7 +56,7 @@ const ArtworksCard = () => {
                             {artwork.description}
                         </Typography>
                         <Typography variant="body2" color="secondary" sx={{ fontWeight: 'bold' }}>
-                            Price: <Box component="span" sx={{ fontWeight: 'semibold' }}>BK{artwork.price}</Box>
+                            Price: <Box component="span" sx={{ fontWeight: 'semibold' }}>BK {artwork.price}</Box>
                         </Typography>
 
                     </CardContent>

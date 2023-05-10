@@ -1,17 +1,24 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Home from './pages/home'
-import Parents from "./pages/parents";
-import Children from "./pages/createChildAccount";
-import Artworks from "./pages/artworks";
+import Home from './pages/home/home'
+import Children from "./pages/parents/createChildAccount";
+import Artworks from "./pages/artworks/CreateArtwork";
 // import LeftDrawer from "./components/Drawer";
 import NavBar from "./components/NavBar";
 
 import ArtworkCheckoutPage from "./pages/checkout";
-import ActivateParentAcoount from "./pages/requestActivation";
-import Login from "./pages/parentLogin";
+import ActivateParentAcoount from "./pages/activation/requestActivation";
+import Login from "./pages/parents/parentLogin";
 import CheckoutArt from "./pages/chekoutArt";
-import ArtworkView from "./pages/singleArtwork";
-import ParentsRegister from "./pages/ParentsRegister";
+import ArtworkView from "./pages/artworks/singleArtwork";
+import ParentsRegister from "./pages/parents/ParentsRegister";
+import RegistrationPage from "./components/Register";
+import CustomerRegister from "./pages/customers/Register";
+import CustomerLogin from "./pages/customers/Login";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AccountStatus from "./pages/admin/Accounts";
+import SendRequest from "./pages/activation/sendRequest";
+import ActivationRequests from "./pages/activation/activationRequests";
+
 function App() {
   return (
     <div className="max-w-screen my-0 ">
@@ -19,15 +26,21 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/parents" element={<Parents />} />
           <Route path="/children" element={<Children />} />
           <Route path="/artworks" element={<Artworks />} />
           <Route path="/checkout" element={<ArtworkCheckoutPage />} />
-          <Route path="/activate" element={<ActivateParentAcoount />} />
-          <Route path="/parent-login" element={<Login />} />
+          <Route path="/activation-request" element={<ActivateParentAcoount />} />
+          <Route path="/parent-login/:token" element={<Login />} />
           <Route path="/checkout-art" element={<CheckoutArt />} />
           <Route path="/artwork/:id" element={<ArtworkView />} />
           <Route path="/register-parent" element={<ParentsRegister />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/register-customer" element={<CustomerRegister />} />
+          <Route path="/login-customer" element={<CustomerLogin />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/accounts" element={<AccountStatus />} />
+          <Route path="/send/request/:ID" element={<SendRequest />} />
+          <Route path="/activation/requests" element={<ActivationRequests />} />
         </Routes>
       </BrowserRouter>
     </div>

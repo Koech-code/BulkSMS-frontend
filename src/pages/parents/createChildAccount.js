@@ -64,6 +64,14 @@ const Children = () => {
                                 variant="outlined"
                                 sx={{ mb: 2 }}
                             />
+
+                            <TextField
+                                fullWidth
+                                type="file"
+                                variant='outlined'
+                                sx={{ m: 4 }}
+                                required
+                            />
                         </CardContent>
                     </Card>
                 </DialogContent>

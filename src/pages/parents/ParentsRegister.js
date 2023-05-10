@@ -6,7 +6,8 @@ import {
     TextField,
     Button,
     Grid,
-    Typography
+    Typography,
+    Link
 } from '@material-ui/core';
 import axios from 'axios';
 
@@ -37,6 +38,22 @@ function ParentsRegister() {
             errors["password"] = "Please enter your password";
         }
 
+        // Validate name
+        if (!name) {
+            formIsValid = false;
+            errors["name"] = "Please enter your name";
+        }
+
+        // validate phone number
+        if (!phoneNumber) {
+            formIsValid = false;
+            errors["phoneNumber"] = "Please enter your phone number";
+        } else if (!/^\+[1-9]\d{1,14}$/.test(phoneNumber)) {
+            formIsValid = false;
+            errors["phoneNumber"] = "Please enter a valid phone number starting with '+' and followed by a country code and phone number";
+        }
+
+
         setErrors(errors);
         return formIsValid;
     };
@@ -56,19 +73,18 @@ function ParentsRegister() {
                 const response = await axios.post("http://localhost:443/api/parent/register", formData, {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzeXN0ZW1AYm9zc2tpZHMubmV0IiwiaWF0IjoxNjgzNDM5MDU5LCJleHAiOjE2ODM0ODkwNTl9.Vn5orE-EfAQ7xfCLCG4g9L2ZzBwHkrPzutGuEn_CUjI`,
                     },
                 });
 
                 if (response.status === 200) {
 
-                    alert("Logged in successfully!");
+                    alert("Parent account created successfully!");
                 } else {
-                    alert("Failed to log in");
+                    alert("Failed to create parent account");
                 }
             } catch (error) {
                 console.error(error);
-                alert("Failed to log in");
+                alert("Failed to create account");
             }
         }
     };
@@ -82,6 +98,18 @@ function ParentsRegister() {
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item>
+                                    <Typography variant="body1">Name</Typography>
+                                    <TextField
+                                        fullWidth
+                                        variant="outlined"
+                                        type="text"
+                                        value={name}
+                                        onChange={(nm) => setName(nm.target.value)}
+                                        error={errors.name ? true : false}
+                                        helperText={errors.name}
+                                    />
+                                </Grid>
+                                <Grid item>
                                     <Typography variant="body1">Email Address</Typography>
                                     <TextField
                                         fullWidth
@@ -92,30 +120,8 @@ function ParentsRegister() {
                                         helperText={errors.email}
                                     />
                                 </Grid>
-                                <Grid item>
-                                    <Typography variant="body1">Password</Typography>
-                                    <TextField
-                                        fullWidth
-                                        variant="outlined"
-                                        type="password"
-                                        value={password}
-                                        onChange={(pass) => setPassword(pass.target.value)}
-                                        error={errors.password ? true : false}
-                                        helperText={errors.password}
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="body1">Name</Typography>
-                                    <TextField
-                                        fullWidth
-                                        variant="outlined"
-                                        type="text"
-                                        value={name}
-                                        onChange={(nm) => setName(nm.target.value)}
-                                    // error={errors.password ? true : false}
-                                    // helperText={errors.password}
-                                    />
-                                </Grid>
+
+
                                 <Grid item>
                                     <Typography variant="body1">Phone Number</Typography>
                                     <TextField
@@ -124,8 +130,8 @@ function ParentsRegister() {
                                         type="text"
                                         value={phoneNumber}
                                         onChange={(phone) => setPhoneNumber(phone.target.value)}
-                                    // error={errors.password ? true : false}
-                                    // helperText={errors.password}
+                                        error={errors.phoneNumber ? true : false}
+                                        helperText={errors.phoneNumber}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -141,11 +147,29 @@ function ParentsRegister() {
                                     />
                                 </Grid>
                                 <Grid item>
+                                    <Typography variant="body1">Password</Typography>
+                                    <TextField
+                                        fullWidth
+                                        variant="outlined"
+                                        type="password"
+                                        value={password}
+                                        onChange={(pass) => setPassword(pass.target.value)}
+                                        error={errors.password ? true : false}
+                                        helperText={errors.password}
+                                    />
+                                </Grid>
+                                <Typography align="center">
+                                    Already have an account? <Link href="/parent-login">Login</Link>
+                                </Typography>
+                                <Grid item>
                                     <Button
                                         fullWidth
                                         variant="contained"
                                         color="primary"
                                         type="submit"
+                                        style={{
+                                            backgroundColor: '#00A86B',
+                                        }}
                                     >
                                         Register
                                     </Button>

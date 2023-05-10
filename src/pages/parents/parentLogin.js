@@ -50,12 +50,18 @@ function Login() {
                 const response = await axios.post("http://localhost:443/api/parent/login", formData, {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
 
                 if (response.status === 200) {
+                    // Extract token from response
+                    const token = response.data.token;
+
+                    // Save token in local storage
+                    // localStorage.setItem("token", token);
+
                     alert("Logged in successfully!");
+                    // window.location.href = "/activate";
                 } else {
                     alert("Failed to log in");
                 }
@@ -65,6 +71,8 @@ function Login() {
             }
         }
     };
+
+
 
     return (
         <Grid container justify="center" alignItems="center" style={{ height: '100vh' }}>
@@ -103,6 +111,9 @@ function Login() {
                                         variant="contained"
                                         color="primary"
                                         type="submit"
+                                        style={{
+                                            backgroundColor: '#00A86B',
+                                        }}
                                     >
                                         Login
                                     </Button>
