@@ -73,7 +73,7 @@ const AdminLogin = () => {
 
 
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: '100vh' }}>
+        <Grid container justify="center" alignItems="center" style={{ height: '100vh', paddingLeft: "150px" }}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
                     <CardHeader alignItems="center" title="Admin Login" />

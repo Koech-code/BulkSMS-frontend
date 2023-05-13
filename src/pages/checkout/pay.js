@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 
-const ArtworkView = () => {
+const Checkout = () => {
     const { id } = useParams();
-    const [artwork, setArtwork] = useState(null);
-    const [selectedArtwork, setSelectedArtwork] = useState(null);
     const navigate = useNavigate();
+    const [artwork, setArtwork] = useState(null);
 
     useEffect(() => {
         fetch(`http://localhost:443/api/artworks/artwork/${id}`, {
-            method: "GET",
+            method: 'GET',
         })
             .then((response) => response.json())
             .then((data) => {
@@ -22,10 +21,14 @@ const ArtworkView = () => {
             });
     }, [id]);
 
-    const handleCheckout = () => {
-        setSelectedArtwork(artwork);
-        navigate(`/pay/${artwork.id}`);
-    }
+    const handleBack = () => {
+        navigate(-1);
+    };
+
+    const handlePay = () => {
+        // TODO: implement payment functionality
+        alert(`Payment successful for ${artwork.title}!`);
+    };
 
     if (!artwork) {
         return <div>Loading...</div>;
@@ -52,12 +55,12 @@ const ArtworkView = () => {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button size="small" onClick={() => window.history.back()}>Back</Button>
-                    <Button size="small" onClick={handleCheckout}>Checkout</Button>
+                    <Button size="small" onClick={handleBack}>Back</Button>
+                    <Button size="small" onClick={handlePay}>Pay</Button>
                 </CardActions>
             </Card>
         </Box>
     );
 };
 
-export default ArtworkView;
+export default Checkout;

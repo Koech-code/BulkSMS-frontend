@@ -69,10 +69,10 @@ function CustomerLogin() {
 
 
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: '100vh' }}>
+        <Grid container justify="center" alignItems="center" style={{ height: '100vh', paddingLeft: "150px" }}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
-                    <CardHeader title="Login" />
+                    <CardHeader title="Customer Login" />
                     <CardContent>
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>
@@ -88,7 +88,7 @@ function CustomerLogin() {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="body1">Password:</Typography>
+                                    <Typography variant="body1">Password</Typography>
                                     <TextField
                                         fullWidth
                                         variant="outlined"

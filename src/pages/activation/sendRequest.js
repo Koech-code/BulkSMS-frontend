@@ -3,6 +3,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, TextField, Input, Button, Typography, Box } from '@material-ui/core';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function SendRequest() {
     const { ID } = useParams();
     const [frontNationalIdPhoto, setFrontNationalIdPhoto] = useState(null)
@@ -58,20 +61,47 @@ function SendRequest() {
                     },
                 });
 
-                alert("Activation request sent successfully!");
+                toast.success("Activation request sent successfully!", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             } catch (error) {
                 console.error(error);
-                alert("Failed to send activation request.");
+                toast.error("Failed to send activation request.", {
+                    position: "top-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
         } else if (formData.status === 1) {
-            alert("Your account is already active.");
+            toast.info("Your account is already active.", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
 
     return (
-        <Box style={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
-            <Card style={{ width: '50%' }}>
+        <Box style={{ display: 'flex', justifyContent: 'center', marginTop: 4, paddingLeft: "150px" }}>
+            <Card style={{ width: '60%' }}>
                 <CardContent>
                     <Typography variant="body1">Wallet Address</Typography>
                     <TextField
@@ -91,8 +121,9 @@ function SendRequest() {
                         variant="outlined"
                         value={formData.status}
                     />
-                    <Box style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+                    <Box style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginTop: 8 }}>
                         <Box style={{ width: '230px' }}>
+                            <Typography>National ID (Front)</Typography>
                             <TextField
                                 type="file"
                                 onChange={(img1) => setFrontNationalIdPhoto(img1.target.files[0])}
@@ -100,8 +131,10 @@ function SendRequest() {
                                 margin="normal"
                             />
                         </Box>
+
                         {/* <Box style={{ width: '10px' }}></Box> */}
                         <Box style={{ width: '230px' }}>
+                            <Typography>National ID (Back)</Typography>
                             <TextField
                                 type="file"
                                 variant="outlined"
@@ -110,6 +143,7 @@ function SendRequest() {
                             />
                         </Box>
                         <Box style={{ width: '230px' }}>
+                            <Typography>Your profile photo</Typography>
                             <TextField
                                 type="file"
                                 variant="outlined"
@@ -131,7 +165,21 @@ function SendRequest() {
                         >
                             Send Activation Request
                         </Button>
+                        <ToastContainer
+                            // theme="dark"
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                        />
                     </Box>
+
                 </CardContent>
             </Card>
         </Box>

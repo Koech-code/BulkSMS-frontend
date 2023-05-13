@@ -39,7 +39,7 @@ const ArtworksCard = () => {
 
 
     return (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingLeft: "150px" }}>
             {artworks.map((artwork) => (
                 <Card sx={{ maxWidth: 345, m: 2 }} key={artwork.id}>
                     <CardMedia

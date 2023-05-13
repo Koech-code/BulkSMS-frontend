@@ -78,7 +78,7 @@ function Login() {
         <Grid container justify="center" alignItems="center" style={{ height: '100vh' }}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
-                    <CardHeader title="Login" />
+                    <CardHeader title="Parents Login" />
                     <CardContent>
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>

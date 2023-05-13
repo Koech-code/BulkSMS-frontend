@@ -3,19 +3,11 @@ import { Avatar, Table, TableBody, TableCell, TableContainer, TableHead, TableRo
 import axios from 'axios';
 // import { Modal } from '@material-ui/core';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function ActivationRequests() {
     const [activationRequests, setActivationRequests] = useState([])
-    //     const [openModal, setOpenModal] = useState(false);
-
-    //     const handleOpenModal = () => {
-    //         setOpenModal(true);
-    //     };
-
-    //     const handleCloseModal = () => {
-    //     setOpenModal(false);
-    // };
-
-    // const [accountStatus, setAccountStatus] = useState("")
 
     useEffect(() => {
         fetch(
@@ -45,16 +37,36 @@ function ActivationRequests() {
             });
 
             console.log(response);
-            alert("Account activated successfully!");
+
+            toast.success("Account activated successfully!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             window.location.reload();
         } catch (error) {
             console.error(error);
-            alert("Failed to activate account.");
+            toast.error("Failed to activate account.", {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
         }
     };
 
     return (
-        <TableContainer>
+        <TableContainer sx={{ paddingLeft: "150px" }}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -72,7 +84,7 @@ function ActivationRequests() {
                     {activationRequests.map((request) => (
                         <TableRow key={request.id}>
                             <TableCell style={{ width: '20px', textAlign: 'center' }}>
-                                <Avatar alt={request.name} src={`http://localhost:443/${request.userProfilePhoto}`} style={{ width: "55%", height: "75px", objectFit: "cover", objectPosition: "center" }} />
+                                <Avatar alt={request.name} src={`http://localhost:443/${request.userProfilePhoto}`} style={{ width: "75%", height: "75px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '10px', textAlign: 'center' }}>
                                 <img src={`http://localhost:443/${request.frontNationalIdPhoto}`} alt="National ID (front)" style={{ width: "80%", height: "100px", objectFit: "cover", objectPosition: "center" }} />
@@ -95,9 +107,23 @@ function ActivationRequests() {
                                         backgroundColor: '#00A86B',
                                     }} color="primary"
                                     onClick={(e) => handleActivate(e, request.id)}
+
                                 >
                                     Activate
                                 </Button>
+                                <ToastContainer
+                                    // theme="dark"
+                                    position="top-right"
+                                    autoClose={5000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover
+                                    theme="light"
+                                />
                             </TableCell>
                         </TableRow>
 

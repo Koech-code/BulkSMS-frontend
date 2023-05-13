@@ -91,7 +91,7 @@ function CustomerRegister() {
     };
 
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: '40px' }}>
+        <Grid container justify="center" alignItems="center" style={{ height: '40px', paddingLeft: "150px" }}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
                     <CardHeader title="Create account" />
