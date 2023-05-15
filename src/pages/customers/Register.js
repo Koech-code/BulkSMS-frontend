@@ -16,7 +16,7 @@ function CustomerRegister() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [nationalID, setNationalID] = useState("");
+    const [nationalIdCard, setNationalIdCard] = useState("");
     const [location, setLocation] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -67,11 +67,11 @@ function CustomerRegister() {
             formData.append("email", email);
             formData.append("password", password);
             formData.append("phoneNumber", phoneNumber);
-            formData.append("nationalID", nationalID);
+            formData.append("nationalIdCard", nationalIdCard);
             formData.append("name", name);
 
             try {
-                const response = await axios.post("http://localhost:443/api/customer/register", formData, {
+                const response = await axios.post("http://localhost:443/api/customer/user-register", formData, {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -79,9 +79,9 @@ function CustomerRegister() {
 
                 if (response.status === 200) {
 
-                    alert("Parent account created successfully!");
+                    alert("Customer's account created successfully!");
                 } else {
-                    alert("Failed to create parent account");
+                    alert("Failed to create customer's account");
                 }
             } catch (error) {
                 console.error(error);
@@ -94,7 +94,7 @@ function CustomerRegister() {
         <Grid container justify="center" alignItems="center" style={{ height: '40px', paddingLeft: "150px" }}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
-                    <CardHeader title="Create account" />
+                    <CardHeader title="Create account (CUSTOMER)" />
                     <CardContent>
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>
@@ -141,8 +141,8 @@ function CustomerRegister() {
                                         fullWidth
                                         variant="outlined"
                                         type="text"
-                                        value={nationalID}
-                                        onChange={(nid) => setNationalID(nid.target.value)}
+                                        value={nationalIdCard}
+                                        onChange={(nid) => setNationalIdCard(nid.target.value)}
                                     // error={errors.password ? true : false}
                                     // helperText={errors.password}
                                     />

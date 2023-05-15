@@ -36,7 +36,7 @@ import { ArrowDropDown } from '@material-ui/icons';
 
 const routes = [
     { path: '/home', element: <Home /> },
-    { path: '/admin', element: <AdminLogin /> },
+    { path: '/', element: <AdminLogin /> },
     { path: '/customer', element: <CustomerLogin /> }
 ];
 
@@ -118,7 +118,7 @@ export default function PermanentDrawerLeft() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose} component={Link} to="/admin">Login</MenuItem>
+                    <MenuItem onClick={handleClose} component={Link} to="/">Login</MenuItem>
                     <MenuItem onClick={handleClose} component={Link} to="/activation/requests">Requests</MenuItem>
                 </Menu>
                 <ListItem button onClick={handleOpenDropdown}>
@@ -128,19 +128,6 @@ export default function PermanentDrawerLeft() {
                     <ListItemText primary="Customers" />
                     <ArrowDropDown />
                 </ListItem>
-
-
-                <Menu
-                    id="customer-menu"
-                    anchorEl={customers}
-                    open={Boolean(customers)}
-                    onClose={handleCloseDropdown}
-                >
-                    <MenuItem onClick={handleCloseDropdown} component={Link} to="/customer/login">Login</MenuItem>
-                    <MenuItem onClick={handleCloseDropdown} component={Link} to="/customer/register">Register</MenuItem>
-                </Menu>
-
-
                 <ListItem component={Link} to="/parent/login" button onClick={handleDrawerToggle}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ color: "#00A86B" }} />
@@ -159,7 +146,7 @@ export default function PermanentDrawerLeft() {
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button >
                     <ListItemIcon>
                         <LogoutIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>

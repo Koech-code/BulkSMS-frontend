@@ -66,7 +66,7 @@ function ActivationRequests() {
     };
 
     return (
-        <TableContainer sx={{ paddingLeft: "150px" }}>
+        <TableContainer style={{ paddingLeft: '200px' }}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -84,7 +84,7 @@ function ActivationRequests() {
                     {activationRequests.map((request) => (
                         <TableRow key={request.id}>
                             <TableCell style={{ width: '20px', textAlign: 'center' }}>
-                                <Avatar alt={request.name} src={`http://localhost:443/${request.userProfilePhoto}`} style={{ width: "75%", height: "75px", objectFit: "cover", objectPosition: "center" }} />
+                                <Avatar alt={request.name} src={`http://localhost:443/${request.userProfilePhoto}`} style={{ width: "80%", height: "75px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '10px', textAlign: 'center' }}>
                                 <img src={`http://localhost:443/${request.frontNationalIdPhoto}`} alt="National ID (front)" style={{ width: "80%", height: "100px", objectFit: "cover", objectPosition: "center" }} />
@@ -93,13 +93,14 @@ function ActivationRequests() {
                                 <img src={`http://localhost:443/${request.backNationalIdPhoto}`} alt="National ID (back)" style={{ width: "80%", height: "100px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '15%', textAlign: 'center' }}>{request.walletAddress}</TableCell>
-                            <TableCell style={{ width: '15%', textAlign: 'center' }}>{request.createdAt}</TableCell>
+
                             <TableCell style={{ width: '20px', textAlign: 'center', color: request.status == 1 ? "#00A86B" : request.status == 2 ? 'orange' : 'red' }}>
                                 {request.status == 1 && 'Active'}
                                 {request.status == 2 && 'Pending'}
                                 {request.status == -1 && 'Declined'}
                             </TableCell>
                             <TableCell style={{ width: '20px', textAlign: 'center', fontWeight: request.typeOfUser == 'admin' ? '800' : 'normal' }}>{request.typeOfUser}</TableCell>
+                            <TableCell style={{ width: '15%', textAlign: 'center' }}>{request.createdAt}</TableCell>
                             <TableCell style={{ width: '20px', textAlign: 'center' }}>
                                 <Button
                                     variant="contained"

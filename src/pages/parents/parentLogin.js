@@ -58,7 +58,7 @@ function Login() {
                     const token = response.data.token;
 
                     // Save token in local storage
-                    // localStorage.setItem("token", token);
+                    localStorage.setItem("token", token);
 
                     alert("Logged in successfully!");
                     // window.location.href = "/activate";

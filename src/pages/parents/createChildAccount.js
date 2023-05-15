@@ -15,7 +15,7 @@ import {
     TextField
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-
+import SaveIcon from '@mui/icons-material/Save';
 const Children = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -28,11 +28,13 @@ const Children = () => {
     };
 
     return (
-        <div>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-                Onboard Child
-            </Button>
-            <Dialog open={isOpen} onClose={handleClose}>
+        <div style={{ paddingLeft: "200px" }}>
+            <div style={{ position: 'fixed', top: '80px', right: '10px' }}>
+                <Button variant="contained" color="primary" onClick={handleOpen}>
+                    Onboard Child
+                </Button>
+            </div>
+            <Dialog open={isOpen} onClose={handleClose} style={{ paddingLeft: "200px" }}>
                 <DialogTitle>
                     <Box>
                         <Typography variant="h6">Only parents can create a child's account</Typography>
@@ -84,7 +86,7 @@ const Children = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 }
 
