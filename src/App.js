@@ -34,9 +34,9 @@ function App() {
         {!isAdminlogin && <PermanentDrawerLeft />}
         <Routes>
           <Route path="/" element={<AdminLogin />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/artworks" element={<Home />} />
           <Route path="/children" element={<Children />} />
-          <Route path="/artworks" element={<Artworks />} />
+          <Route path="/artworks/create" element={<Artworks />} />
           <Route path="/checkout" element={<ArtworkCheckoutPage />} />
           <Route path="/activation-request" element={<ActivateParentAcoount />} />
           <Route path="/parent/login" element={<Login />} />

@@ -35,6 +35,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 // import { ArrowDropDown } from '@material-ui/icons';
 import { ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
+import DrawIcon from '@mui/icons-material/Draw';
 
 const routes = [
     { path: '/', element: <AdminLogin /> },
@@ -111,11 +112,11 @@ export default function PermanentDrawerLeft() {
             <Toolbar />
             <Divider />
             <List>
-                <ListItem component={Link} to="/home" button onClick={handleDrawerToggle}>
+                <ListItem component={Link} to="/artworks" button onClick={handleDrawerToggle}>
                     <ListItemIcon>
-                        <HomeIcon sx={{ color: "#00A86B" }} />
+                        <DrawIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>
-                    <ListItemText primary="Home" />
+                    <ListItemText primary="Atworks" />
                 </ListItem>
                 <ListItem button onClick={handleClick}>
                     <ListItemIcon>
@@ -211,8 +212,8 @@ export default function PermanentDrawerLeft() {
 
                     </IconButton>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Button to="/home" color="inherit" sx={{ marginRight: '16px' }}>
-                            Home
+                        <Button to="/artworks" color="inherit" sx={{ marginRight: '16px' }}>
+                            Artworks
                         </Button>
                         {/*
                         <Button to="/parents" color="inherit" sx={{ marginRight: '16px' }}>
@@ -225,7 +226,7 @@ export default function PermanentDrawerLeft() {
                     </Box>
 
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                        Artworks
+                        Dashboard
                     </Typography>
 
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
