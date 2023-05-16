@@ -10,10 +10,10 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+// import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+// import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
@@ -32,15 +32,26 @@ import { useTheme } from '@material-ui/core/styles';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 // const drawerWidth = "160px"
-import { ArrowDropDown } from '@material-ui/icons';
+// import { ArrowDropDown } from '@material-ui/icons';
+import { ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
+import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 
 const routes = [
-    { path: '/home', element: <Home /> },
     { path: '/', element: <AdminLogin /> },
     { path: '/customer', element: <CustomerLogin /> }
 ];
 
 export default function PermanentDrawerLeft() {
+
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [openParents, setOpenParents] = useState(false);
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
+    const toggleParentsDropdown = () => {
+        setOpenParents(!openParents);
+    };
     const [customers, setCustomers] = useState(null);
 
     const handleOpenDropdown = (event) => {
@@ -118,22 +129,50 @@ export default function PermanentDrawerLeft() {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose} component={Link} to="/">Login</MenuItem>
+                    {/* <MenuItem onClick={handleClose} component={Link} to="/">Login</MenuItem> */}
                     <MenuItem onClick={handleClose} component={Link} to="/activation/requests">Requests</MenuItem>
                 </Menu>
-                <ListItem button onClick={handleOpenDropdown}>
+                <ListItem button onClick={toggleDropdown}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>
                     <ListItemText primary="Customers" />
-                    <ArrowDropDown />
+                    {dropdownOpen ? <ArrowDropUp /> : <ArrowDropDown />}
                 </ListItem>
-                <ListItem component={Link} to="/parent/login" button onClick={handleDrawerToggle}>
+                <Collapse in={dropdownOpen}>
+                    <List>
+                        <ListItem button component={Link} to="/customers">
+                            <ListItemText style={{ paddingLeft: "50px" }} primary="Customers List" />
+                        </ListItem>
+                        {/* <ListItem button>
+                            <ListItemText primary="Option 2" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemText primary="Option 3" />
+                        </ListItem> */}
+                    </List>
+                </Collapse>
+
+                <ListItem button onClick={toggleParentsDropdown}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>
                     <ListItemText primary="Parents" />
+                    {openParents ? <ArrowDropUp /> : <ArrowDropDown />}
                 </ListItem>
+                <Collapse in={openParents}>
+                    <List>
+                        <ListItem button component={Link} to="/parents">
+                            <ListItemText style={{ paddingLeft: "50px" }} primary="Parents List" />
+                        </ListItem>
+                        {/* <ListItem button>
+                            <ListItemText primary="Option 2" />
+                        </ListItem>
+                        <ListItem button>
+                            <ListItemText primary="Option 3" />
+                        </ListItem> */}
+                    </List>
+                </Collapse>
 
 
             </List>
@@ -172,7 +211,7 @@ export default function PermanentDrawerLeft() {
 
                     </IconButton>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Button to="/" color="inherit" sx={{ marginRight: '16px' }}>
+                        <Button to="/home" color="inherit" sx={{ marginRight: '16px' }}>
                             Home
                         </Button>
                         {/*

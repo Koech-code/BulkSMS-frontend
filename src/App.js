@@ -22,6 +22,7 @@ import Checkout from "./pages/checkout/pay";
 import Sidebar from "./components/Sidebar";
 import PermanentDrawerLeft from "./components/ResponsiveSidebar";
 import Allparents from "./pages/parents/Allparents";
+import Allcustomers from "./pages/customers/Allcustomers";
 
 function App() {
   const isAdminlogin = window.location.pathname === "/"
@@ -51,6 +52,7 @@ function App() {
           <Route path="/activation/requests" element={<ActivationRequests />} />
           <Route path="/pay/:id" element={<Checkout />} />
           <Route path="/parents" element={<Allparents />} />
+          <Route path="/customers" element={<Allcustomers />} />
 
         </Routes>
       </BrowserRouter>
