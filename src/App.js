@@ -25,13 +25,13 @@ import Allparents from "./pages/parents/Allparents";
 import Allcustomers from "./pages/customers/Allcustomers";
 
 function App() {
-  const isAdminlogin = window.location.pathname === "/"
+  const isLoginPage = window.location.pathname === "/" || window.location.pathname === "/customer/login" || window.location.pathname === "/parent/login";
 
   return (
     <div className="max-w-screen my-0 ">
 
       <BrowserRouter>
-        {!isAdminlogin && <PermanentDrawerLeft />}
+        {!isLoginPage && <PermanentDrawerLeft />}
         <Routes>
           <Route path="/" element={<AdminLogin />} />
           <Route path="/artworks" element={<Home />} />

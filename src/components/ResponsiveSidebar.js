@@ -209,36 +209,29 @@ export default function PermanentDrawerLeft() {
                         sx={{ mr: 2, display: { md: 'none' } }}
                     >
                         <MenuIcon />
-
                     </IconButton>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Button to="/artworks" color="inherit" sx={{ marginRight: '16px' }}>
-                            Artworks
-                        </Button>
-                        {/*
-                        <Button to="/parents" color="inherit" sx={{ marginRight: '16px' }}>
-                            Parents
-                        </Button>
 
-                        <Button to="/artworks" color="inherit" sx={{ marginRight: '16px' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Button to="/artworks" color="inherit" sx={{ marginRight: '16px', display: { xs: 'none', md: 'block' } }}>
                             Artworks
-                        </Button> */}
+                        </Button>
                     </Box>
 
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
-                        Dashboard
-                    </Typography>
+                    <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
+                        <Typography variant="h6" component="div">
+                            Dashboard
+                        </Typography>
+                    </Box>
 
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <AccountBalanceWalletIcon sx={{ marginLeft: '8px' }} />
-                        <Typography>
+                        <AccountBalanceWalletIcon sx={{ marginLeft: '8px', display: { xs: 'none', md: 'block' } }} />
+                        <Typography sx={{ display: { xs: 'none', md: 'block' } }}>
                             Bk {balance ? balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'Loading...'}
                         </Typography>
-
-
                     </Box>
                 </Toolbar>
             </AppBar>
+
             <nav aria-label="mailbox folders">
                 <Drawer
                     variant="temporary"

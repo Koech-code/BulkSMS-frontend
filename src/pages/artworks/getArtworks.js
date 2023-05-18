@@ -5,10 +5,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Grid } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 const ArtworksCard = () => {
     const navigate = useNavigate();
 
@@ -37,29 +41,72 @@ const ArtworksCard = () => {
             });
     }, []);
 
+    const handleDelete = async (artworkId) => {
+        try {
+            const response = await axios.delete(`http://localhost:443/api/artworks/delete/${artworkId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    // Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
 
+            console.log(response);
+            toast.success("Deleted successfully!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            window.location.reload()
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to delete customer info.", {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
     return (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingLeft: "200px" }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', paddingLeft: { xs: 0, sm: '200px' } }}>
             {artworks.map((artwork) => (
-                <Card sx={{ maxWidth: 345, m: 2 }} key={artwork.id}>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image={`http://localhost:443/${artwork.image_url}`}
-                        alt={artwork.title}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {artwork.title}
-                        </Typography>
+                <Card sx={{ maxWidth: 345, m: 2, width: '100%', height: '100%' }} key={artwork.id}>
+                    <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
+                        <CardMedia
+                            component="img"
+                            image={`http://localhost:443/${artwork.image_url}`}
+                            alt={artwork.title}
+                            sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                        />
+                    </Box>
+                    <CardContent sx={{ height: '100%' }}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {artwork.title}
+                            </Typography>
+                            <IconButton onClick={() => handleDelete(artwork.id)}>
+                                <DeleteIcon sx={{ color: "red" }} />
+                            </IconButton>
+
+                        </Box>
+
                         <Typography variant="body2" color="text.secondary">
                             {artwork.description}
                         </Typography>
                         <Typography variant="body2" color="secondary" sx={{ fontWeight: 'bold' }}>
                             Price: <Box component="span" sx={{ fontWeight: 'semibold' }}>BK {artwork.price}</Box>
                         </Typography>
-
                     </CardContent>
+
                     <CardActions sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Button size="small" onClick={() => openImage(artwork.id)}>View</Button>
                         <div onClick={navigateArtCheckout} sx={{ display: 'flex' }}>
@@ -70,12 +117,28 @@ const ArtworksCard = () => {
                                 </Typography>
                             </IconButton>
                         </div>
-
                     </CardActions>
 
                 </Card>
+
             ))}
+
+            <ToastContainer
+                // theme="dark"
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Box>
+
+
     );
 }
 

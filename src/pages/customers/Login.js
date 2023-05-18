@@ -9,6 +9,7 @@ import {
     Typography
 } from '@material-ui/core';
 import axios from 'axios';
+const Logo = require("../../BosskidsLogo.jpg")
 
 function CustomerLogin() {
     const [email, setEmail] = useState('');
@@ -54,6 +55,9 @@ function CustomerLogin() {
                 });
 
                 if (response.status === 200) {
+                    // Save the token in local storage
+                    localStorage.setItem("token", response.data.token);
+
                     alert("Logged in successfully!");
                     window.location.href = "/activate";
                 } else {
@@ -63,6 +67,7 @@ function CustomerLogin() {
                 console.error(error);
                 alert("Failed to log in");
             }
+
         }
     };
 
@@ -73,6 +78,9 @@ function CustomerLogin() {
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
                     <CardHeader title="Customer Login" />
+                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <img src={Logo} alt="Logo" style={{ width: '150px', height: '150px' }} />
+                    </div> */}
                     <CardContent>
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>
