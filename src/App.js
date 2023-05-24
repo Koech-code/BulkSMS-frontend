@@ -6,7 +6,6 @@ import Artworks from "./pages/artworks/CreateArtwork";
 import NavBar from "./components/NavBar";
 
 import ArtworkCheckoutPage from "./pages/checkout";
-import ActivateParentAcoount from "./pages/activation/requestActivation";
 import Login from "./pages/parents/parentLogin";
 import CheckoutArt from "./pages/chekoutArt";
 import ArtworkView from "./pages/artworks/singleArtwork";
@@ -38,7 +37,6 @@ function App() {
           <Route path="/children" element={<Children />} />
           <Route path="/artworks/create" element={<Artworks />} />
           <Route path="/checkout" element={<ArtworkCheckoutPage />} />
-          <Route path="/activation-request" element={<ActivateParentAcoount />} />
           <Route path="/parent/login" element={<Login />} />
           <Route path="/checkout-art" element={<CheckoutArt />} />
           <Route path="/artwork/:id" element={<ArtworkView />} />

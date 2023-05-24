@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import {
     Card,
     CardHeader,
@@ -10,8 +11,26 @@ import {
     Link
 } from '@material-ui/core';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+        height: '100vh',
+        paddingLeft: '200px',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0',
+        },
+
+    },
+}));
+
+
 
 function CustomerRegister() {
+    const classes = useStyles();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState("");
@@ -58,8 +77,7 @@ function CustomerRegister() {
         setErrors(errors);
         return formIsValid;
     };
-
-    const handleLogin = async (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
@@ -71,32 +89,129 @@ function CustomerRegister() {
             formData.append("name", name);
 
             try {
-                const response = await axios.post("http://localhost:443/api/customer/user-register", formData, {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                const response = await axios.post(
+                    "http://localhost:443/api/customer/user-register",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
 
                 if (response.status === 200) {
+                    const customerId = response.data.customer.customerId;
+                    toast.success("Your account has been created successfully!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
 
-                    alert("Customer's account created successfully!");
+                    // Wait for a brief moment to allow the account creation to finish
+                    await new Promise((resolve) => setTimeout(resolve, 6000));
+
+                    // Fetch the user's account using the customer ID
+                    const accountResponse = await axios.get(`http://localhost:443/api/accounts/account/user/${customerId}`);
+                    const account = accountResponse.data;
+
+                    if (account) {
+                        const accountId = account.id;
+                        // Do something with the accountId
+
+                        // Redirect to the dynamic page with the account ID
+                        window.location.href = `/send/request/${accountId}`;
+                    } else {
+                        alert("Account not found for the user");
+                    }
+
                 } else {
                     alert("Failed to create customer's account");
                 }
             } catch (error) {
-                console.error(error);
-                alert("Failed to create account");
+                toast.info(error.response.data.message, {
+                    position: "top-left",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
         }
     };
 
+
+    // const handleRegister = async (e) => {
+    //     e.preventDefault();
+
+    //     if (validateForm()) {
+    //         const formData = new FormData();
+    //         formData.append("email", email);
+    //         formData.append("password", password);
+    //         formData.append("phoneNumber", phoneNumber);
+    //         formData.append("nationalIdCard", nationalIdCard);
+    //         formData.append("name", name);
+
+    //         try {
+    //             const response = await axios.post(
+    //                 "http://localhost:443/api/customer/user-register",
+    //                 formData,
+    //                 {
+    //                     headers: {
+    //                         "Content-Type": "application/json",
+    //                     },
+    //                 }
+    //             );
+
+    //             if (response.status === 200) {
+    //                 const customerId = response.data.customer.customerId;
+    //                 toast.success("Your account has been created successfully!", {
+    //                     position: "top-right",
+    //                     autoClose: 5000,
+    //                     hideProgressBar: false,
+    //                     closeOnClick: true,
+    //                     pauseOnHover: true,
+    //                     draggable: true,
+    //                     progress: undefined,
+    //                     theme: "light",
+    //                 });
+
+    //                 // Redirect to the dynamic page with the customer ID
+    //                 window.location.href = `http://localhost:3000/send/request/${customerId}`;
+    //             } else {
+    //                 alert("Failed to create customer's account");
+    //             }
+    //         } catch (error) {
+    //             toast.info(error.response.data.message, {
+    //                 position: "top-left",
+    //                 autoClose: 5000,
+    //                 hideProgressBar: false,
+    //                 closeOnClick: true,
+    //                 pauseOnHover: true,
+    //                 draggable: true,
+    //                 progress: undefined,
+    //                 theme: "light",
+    //             });
+    //         }
+    //     }
+    // };
+
+
+
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: '40px', paddingLeft: "150px" }}>
+        <Grid container justify="center" alignItems="center" className={classes.gridContainer}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
                     <CardHeader title="Create account (CUSTOMER)" />
                     <CardContent>
-                        <form onSubmit={handleLogin}>
+                        <form onSubmit={handleRegister}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item>
                                     <Typography variant="body1">Name</Typography>
@@ -106,8 +221,8 @@ function CustomerRegister() {
                                         type="text"
                                         value={name}
                                         onChange={(nm) => setName(nm.target.value)}
-                                        error={errors.name ? true : false}
-                                        helperText={errors.name}
+                                    // error={errors.name ? true : false}
+                                    // helperText={errors.name}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -117,8 +232,8 @@ function CustomerRegister() {
                                         variant="outlined"
                                         value={email}
                                         onChange={(mail) => setEmail(mail.target.value)}
-                                        error={errors.email ? true : false}
-                                        helperText={errors.email}
+                                    // error={errors.email ? true : false}
+                                    // helperText={errors.email}
                                     />
                                 </Grid>
 
@@ -131,8 +246,8 @@ function CustomerRegister() {
                                         type="text"
                                         value={phoneNumber}
                                         onChange={(phone) => setPhoneNumber(phone.target.value)}
-                                        error={errors.phoneNumber ? true : false}
-                                        helperText={errors.phoneNumber}
+                                    // error={errors.phoneNumber ? true : false}
+                                    // helperText={errors.phoneNumber}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -172,7 +287,7 @@ function CustomerRegister() {
                                     />
                                 </Grid>
                                 <Typography align="center">
-                                    Already have an account? <Link href="/login-customer">Login</Link>
+                                    Already have an account? <Link href="/customer/login">Login</Link>
                                 </Typography>
                                 <Grid item>
                                     <Button
@@ -188,6 +303,19 @@ function CustomerRegister() {
                                     </Button>
                                 </Grid>
                             </Grid>
+                            <ToastContainer
+                                // theme="dark"
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="light"
+                            />
                         </form>
                     </CardContent>
                 </Card>

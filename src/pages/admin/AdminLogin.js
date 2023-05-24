@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {
     Card,
@@ -13,7 +15,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Logo = require("../../BosskidsLogo.jpg")
 
+const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+        height: '100vh',
+        // paddingLeft: '150px',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0',
+            marginLeft: '6',
+            marginRight: '6'
+        },
+    }
+}));
+
 const AdminLogin = () => {
+    const classes = useStyles();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -62,10 +78,9 @@ const AdminLogin = () => {
 
                     // Save token in local storage
                     localStorage.setItem("token", token);
-
                     toast.success("Logged in successfully!", {
                         position: "top-right",
-                        autoClose: 5000,
+                        autoClose: 2000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
@@ -74,7 +89,10 @@ const AdminLogin = () => {
                         theme: "light",
                     });
 
-                    window.location.href = "/activation/requests";
+                    setTimeout(() => {
+                        window.location.href = "/activation/requests";
+                    }, 2000); // Delay the redirection for the same duration as the autoClose time
+
                 } else {
 
                     toast.error("Failed to log in", {
@@ -108,11 +126,15 @@ const AdminLogin = () => {
 
 
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: '100vh', paddingLeft: "150px" }}>
+        <Grid
+            container
+            justify="center"
+            alignItems="center"
+            className={classes.gridContainer}
+        >
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
                     <CardHeader
-
                         title={
                             <Typography variant="h5" align="center" style={{ fontWeight: 'bold', color: '#00A86B' }}>
                                 Admin Login
@@ -120,16 +142,13 @@ const AdminLogin = () => {
                         }
                         alignItems="center"
                     />
-
-
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <img src={Logo} alt="Logo" style={{ width: '150px', height: '150px' }} />
+                        <img src={Logo} alt="Logo" style={{ maxWidth: '150px', maxHeight: '150px', width: '100%', height: 'auto' }} />
                     </div>
                     <CardContent>
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>
-                                <Grid item>
-
+                                <Grid item xs={12}>
                                     <TextField
                                         fullWidth
                                         label="Email Address"
@@ -139,10 +158,9 @@ const AdminLogin = () => {
                                         helperText={errors.email}
                                         variant="outlined"
                                         sx={{ m: 2 }}
-                                    // required
                                     />
                                 </Grid>
-                                <Grid item>
+                                <Grid item xs={12}>
                                     <Typography variant="body1"></Typography>
                                     <TextField
                                         fullWidth
@@ -154,23 +172,19 @@ const AdminLogin = () => {
                                         helperText={errors.password}
                                         variant="outlined"
                                         sx={{ m: 2 }}
-                                    // required
                                     />
                                 </Grid>
-                                <Grid item>
+                                <Grid item xs={12}>
                                     <Button
                                         fullWidth
                                         variant="contained"
                                         color="primary"
                                         type="submit"
-                                        style={{
-                                            backgroundColor: '#00A86B',
-                                        }}
+                                        style={{ backgroundColor: '#00A86B' }}
                                     >
                                         Login
                                     </Button>
                                     <ToastContainer
-                                        // theme="dark"
                                         position="top-right"
                                         autoClose={5000}
                                         hideProgressBar={false}
@@ -188,6 +202,7 @@ const AdminLogin = () => {
                     </CardContent>
                 </Card>
             </Grid>
+
         </Grid>
     )
 }

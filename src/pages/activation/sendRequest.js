@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Card, CardContent, TextField, Input, Button, Typography, Box } from '@material-ui/core';
@@ -6,7 +7,20 @@ import { Card, CardContent, TextField, Input, Button, Typography, Box } from '@m
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+        height: '100vh',
+        paddingLeft: '200px',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0',
+        },
+
+    },
+}));
+
 function SendRequest() {
+    const classes = useStyles();
+
     const { ID } = useParams();
     const [frontNationalIdPhoto, setFrontNationalIdPhoto] = useState(null)
     const [backNationalIdPhoto, setBackNationalIdPhoto] = useState(null)
@@ -71,6 +85,7 @@ function SendRequest() {
                     progress: undefined,
                     theme: "light",
                 });
+                window.location.href = "/customer/login";
             } catch (error) {
                 console.error(error);
                 toast.error("Failed to send activation request.", {
@@ -100,7 +115,7 @@ function SendRequest() {
 
 
     return (
-        <Box style={{ display: 'flex', justifyContent: 'center', marginTop: 4, paddingLeft: "150px" }}>
+        <Box style={{ display: 'flex', justifyContent: 'center', marginTop: 4 }} className={classes.gridContainer}>
             <Card style={{ width: '60%' }}>
                 <CardContent>
                     <Typography variant="body1">Wallet Address</Typography>

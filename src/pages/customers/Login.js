@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
     Card,
     CardHeader,
@@ -6,10 +8,12 @@ import {
     TextField,
     Button,
     Grid,
-    Typography
+    Typography,
+    Box
 } from '@material-ui/core';
 import axios from 'axios';
 const Logo = require("../../BosskidsLogo.jpg")
+
 
 function CustomerLogin() {
     const [email, setEmail] = useState('');
@@ -58,8 +62,21 @@ function CustomerLogin() {
                     // Save the token in local storage
                     localStorage.setItem("token", response.data.token);
 
-                    alert("Logged in successfully!");
-                    window.location.href = "/activate";
+                    toast.success("Logged in successfully!", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+
+                    setTimeout(() => {
+                        window.location.href = "/artworks";
+                    }, 2000); // Delay the redirection for the same duration as the autoClose time
+
                 } else {
                     alert("Failed to log in");
                 }
@@ -74,19 +91,24 @@ function CustomerLogin() {
 
 
     return (
-        <Grid container justify="center" alignItems="center" style={{ height: '100vh', paddingLeft: "150px" }}>
+        <Grid container justify="center" alignItems="center" style={{ height: '100vh' }}>
             <Grid item xs={12} sm={8} md={6} lg={4}>
                 <Card>
-                    <CardHeader title="Customer Login" />
-                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <CardHeader title={
+                        <Typography variant="h5" style={{ textAlign: "center", fontWeight: 800, color: "#00A86B" }}>
+                            Customer Login
+                        </Typography>
+                    } />
+
+                    <Box style={{ display: 'flex', justifyContent: 'center' }}>
                         <img src={Logo} alt="Logo" style={{ width: '150px', height: '150px' }} />
-                    </div> */}
+                    </Box>
                     <CardContent>
                         <form onSubmit={handleLogin}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item>
-                                    <Typography variant="body1">Email Address</Typography>
                                     <TextField
+                                        label="Email Address"
                                         fullWidth
                                         variant="outlined"
                                         value={email}
@@ -96,8 +118,8 @@ function CustomerLogin() {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="body1">Password</Typography>
                                     <TextField
+                                        label="Password"
                                         fullWidth
                                         variant="outlined"
                                         type="password"
@@ -125,6 +147,19 @@ function CustomerLogin() {
                     </CardContent>
                 </Card>
             </Grid>
+            <ToastContainer
+                // theme="dark"
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Grid>
     );
 }

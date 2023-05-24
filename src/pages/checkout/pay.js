@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography, TextField } from '@mui/material';
 import jwtDecode from 'jwt-decode';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Checkout = () => {
     const [userWalletAddress, setUserWalletAddress] = useState('');
@@ -14,7 +17,7 @@ const Checkout = () => {
     const [amount, setAmount] = useState('');
 
     useEffect(() => {
-        const userId = localStorage.getItem('userId'); // Retrieve user ID from JWT token in local storage
+        const userId = localStorage.getItem('userId');
 
         fetch(`http://localhost:443/api/artworks/artwork/${id}`, {
             method: 'GET',
@@ -40,7 +43,6 @@ const Checkout = () => {
             to,
             amount: artwork.price,
         };
-
         fetch(`http://localhost:443/api/v1.1/wallet/pay/${id}`, {
             method: 'POST',
             headers: {
@@ -51,39 +53,81 @@ const Checkout = () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                // Handle the payment response as needed
+
+                // Log the data to the console for debugging purposes
                 console.log(data);
-                alert(`Payment successful for ${artwork.title}!`);
+
+                if (data.status === 'success') {
+                    // Display success toast message
+                    toast.success(`Payment successful for "${artwork.title}"`, {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
+                } else {
+                    // Display error toast message with the specific error message
+                    toast.info(data.message, {
+                        position: 'top-left',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
+                }
             })
             .catch((err) => {
-                console.log(err.message);
+                // Log the error to the console for debugging purposes
+                console.error(err);
+
+                // Display error toast message
+                toast.error('An error occurred. Please try again later.', {
+                    position: 'top-left',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
             });
-    };
+    }
 
-    const handleGetAddress = () => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const decodedToken = jwtDecode(token);
-            const userId = decodedToken.id;
-            // Use the userId variable as needed
-            console.log('User ID:', userId);
+    const handleGetAddress = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (token) {
+                const decodedToken = jwtDecode(token);
+                const userId = decodedToken.id;
+                // Use the userId variable as needed
+                console.log('User ID:', userId);
 
+                const response = await fetch(`http://localhost:443/api/accounts/account/user/${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-            fetch(`http://localhost:443/api/v1.1/wallet/address/${userId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
+                if (response.ok) {
+                    const data = await response.json();
                     console.log(data);
                     setUserWalletAddress(data.walletAddress); // Store the user's wallet address in the state variable
                     setFrom(data.walletAddress); // Pre-fill the "from" address field with the user's wallet address
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
+                } else {
+                    console.log('Failed to get account details:', response.status);
+                }
+            }
+        } catch (error) {
+            console.log(error.message);
         }
     };
 
@@ -139,6 +183,19 @@ const Checkout = () => {
                     <Button size="small" onClick={handlePay}>Pay</Button>
                 </CardActions>
             </Card>
+            <ToastContainer
+                // theme="dark"
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Box>
     );
 };

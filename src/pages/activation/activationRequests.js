@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Table, Box, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@material-ui/core';
 import axios from 'axios';
 // import { Modal } from '@material-ui/core';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+        height: '100vh',
+        paddingLeft: '200px',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0',
+        },
+
+    },
+}));
+
+
 function ActivationRequests() {
+    const classes = useStyles();
+
     const [activationRequests, setActivationRequests] = useState([])
 
     useEffect(() => {
@@ -19,8 +34,8 @@ function ActivationRequests() {
                 console.log(data);
                 setActivationRequests(data);
             })
-            .catch((err) => {
-                console.log(err.message);
+            .catch(error => {
+                console.log('Error:', error.response.data.message);
             });
     }, []);
 
@@ -51,7 +66,7 @@ function ActivationRequests() {
             window.location.reload();
         } catch (error) {
             console.error(error);
-            toast.error("Failed to activate account.", {
+            toast.error(error.response.data.message, {
                 position: "top-left",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -66,7 +81,11 @@ function ActivationRequests() {
     };
 
     return (
-        <TableContainer style={{ paddingLeft: '200px' }}>
+        <TableContainer
+            container
+            justify="center"
+            alignItems="center"
+            className={classes.gridContainer}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -84,13 +103,32 @@ function ActivationRequests() {
                     {activationRequests.map((request) => (
                         <TableRow key={request.id}>
                             <TableCell style={{ width: '20px', textAlign: 'center' }}>
-                                <Avatar alt={request.name} src={`http://localhost:443/${request.userProfilePhoto}`} style={{ width: "80%", height: "75px", objectFit: "cover", objectPosition: "center" }} />
+                                <Box style={{ display: 'flex', alignItems: 'center' }}>
+                                    {request.userProfilePhoto ? (
+                                        <img
+                                            alt={request.name}
+                                            src={`http://localhost:443/${request.userProfilePhoto}`}
+                                            style={{
+                                                width: '60%',
+                                                height: '45px',
+                                                objectFit: 'cover',
+                                                objectPosition: 'center',
+                                                borderRadius: '50%',
+                                            }}
+
+                                        />
+                                    ) : (
+                                        <Avatar >
+                                        </Avatar>
+                                    )}
+
+                                </Box>
                             </TableCell>
                             <TableCell style={{ width: '10px', textAlign: 'center' }}>
-                                <img src={`http://localhost:443/${request.frontNationalIdPhoto}`} alt="National ID (front)" style={{ width: "80%", height: "100px", objectFit: "cover", objectPosition: "center" }} />
+                                <img src={`http://localhost:443/${request.frontNationalIdPhoto}`} alt="National ID (front)" style={{ width: "80%", height: "50px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '10px', textAlign: 'center' }}>
-                                <img src={`http://localhost:443/${request.backNationalIdPhoto}`} alt="National ID (back)" style={{ width: "80%", height: "100px", objectFit: "cover", objectPosition: "center" }} />
+                                <img src={`http://localhost:443/${request.backNationalIdPhoto}`} alt="National ID (back)" style={{ width: "80%", height: "50px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '15%', textAlign: 'center' }}>{request.walletAddress}</TableCell>
 
@@ -112,25 +150,26 @@ function ActivationRequests() {
                                 >
                                     Activate
                                 </Button>
-                                <ToastContainer
-                                    // theme="dark"
-                                    position="top-right"
-                                    autoClose={5000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover
-                                    theme="light"
-                                />
+
                             </TableCell>
                         </TableRow>
 
                     ))}
                 </TableBody>
             </Table>
+            <ToastContainer
+                // theme="dark"
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </TableContainer>
     );
 }
