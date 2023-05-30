@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Allparents = () => {
+const Alltransactions = () => {
 
     const classes = useStyles();
 
@@ -45,7 +45,7 @@ const Allparents = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:443/api/parent/parents", {
+        fetch("http://localhost:443/api/v1.1/wallet/all/transactions", {
             method: "GET",
         })
             .then((response) => response.json())
@@ -58,86 +58,86 @@ const Allparents = () => {
             });
     }, [])
 
-    const handleSave = async (e) => {
-        e.preventDefault();
+    // const handleSave = async (e) => {
+    //     e.preventDefault();
 
-        try {
-            const response = await axios.put(`http://localhost:443/api/parent/update/${selectedParent.id}`, {
-                name: selectedParent.name,
-                phoneNumber: selectedParent.phoneNumber,
-                email: selectedParent.email,
-                nationalID: selectedParent.nationalID
-            }, {
-                headers: {
-                    "Content-Type": "application/json",
-                    // Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            });
+    //     try {
+    //         const response = await axios.put(`http://localhost:443/api/parent/update/${selectedParent.id}`, {
+    //             name: selectedParent.name,
+    //             phoneNumber: selectedParent.phoneNumber,
+    //             email: selectedParent.email,
+    //             nationalID: selectedParent.nationalID
+    //         }, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 // Authorization: `Bearer ${localStorage.getItem("token")}`
+    //             }
+    //         });
 
-            console.log(response);
+    //         console.log(response);
 
-            toast.success("Parent information updated successfully!", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            window.location.reload();
-        } catch (error) {
-            console.error(error);
-            toast.error("Failed to update parent account.", {
-                position: "top-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    };
+    //         toast.success("Parent information updated successfully!", {
+    //             position: "top-right",
+    //             autoClose: 5000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //         });
+    //         window.location.reload();
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error("Failed to update parent account.", {
+    //             position: "top-left",
+    //             autoClose: 5000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //         });
+    //     }
+    // };
 
 
-    const handleDelete = async (parentId) => {
-        try {
-            const response = await axios.delete(`http://localhost:443/api/parent/delete/${parentId}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    // Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            });
+    // const handleDelete = async (parentId) => {
+    //     try {
+    //         const response = await axios.delete(`http://localhost:443/api/parent/delete/${parentId}`, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 // Authorization: `Bearer ${localStorage.getItem("token")}`
+    //             }
+    //         });
 
-            console.log(response);
-            toast.success("Successfully deleted", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            window.location.reload();
-        } catch (error) {
-            console.error(error);
-            toast.error("Failed to delete parent info.", {
-                position: "top-left",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        }
-    }
+    //         console.log(response);
+    //         toast.success("Successfully deleted", {
+    //             position: "top-right",
+    //             autoClose: 5000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //         });
+    //         window.location.reload();
+    //     } catch (error) {
+    //         console.error(error);
+    //         toast.error("Failed to delete parent info.", {
+    //             position: "top-left",
+    //             autoClose: 5000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //         });
+    //     }
+    // }
 
 
 
@@ -147,24 +147,24 @@ const Allparents = () => {
                 <TableHead >
                     <TableRow >
                         <TableCell style={{ fontWeight: "800", fontSize: "18px" }}>ID</TableCell>
-                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Name</TableCell>
-                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Phone Number</TableCell>
-                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Email Address</TableCell>
-                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Nation ID Number</TableCell>
+                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>From</TableCell>
+                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>To</TableCell>
+                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Amount</TableCell>
+                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Transaction ID</TableCell>
                         <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Created</TableCell>
-                        <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Action</TableCell>
+                        {/* <TableCell style={{ fontWeight: "bolder", fontSize: "18px" }}>Action</TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {parents.map((parent) => (
                         <TableRow key={parent.id}>
                             <TableCell>{parent.id}</TableCell>
-                            <TableCell>{parent.name}</TableCell>
-                            <TableCell>{parent.phoneNumber}</TableCell>
-                            <TableCell>{parent.email}</TableCell>
-                            <TableCell>{parent.nationalID}</TableCell>
+                            <TableCell>{parent.from_address}</TableCell>
+                            <TableCell>{parent.to_address}</TableCell>
+                            <TableCell>{parent.amount}</TableCell>
+                            <TableCell>{parent.txn_id}</TableCell>
                             <TableCell>{parent.createdAt}</TableCell>
-                            <TableCell>
+                            {/* <TableCell>
                                 <IconButton color="primary" onClick={() => handleOpen(parent)}>
                                     <Edit />
                                 </IconButton>
@@ -176,7 +176,7 @@ const Allparents = () => {
                                     />
                                 </IconButton>
 
-                            </TableCell>
+                            </TableCell> */}
                         </TableRow>
                     ))}
 
@@ -239,9 +239,9 @@ const Allparents = () => {
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
 
-                            <Button fullWidth onClick={(e) => handleSave(e, parents.id)} variant="contained" color="primary" >
+                            {/* <Button fullWidth onClick={(e) => handleSave(e, parents.id)} variant="contained" color="primary" >
                                 Save
-                            </Button>
+                            </Button> */}
                             <ToastContainer
                                 // theme="dark"
                                 position="top-right"
@@ -263,4 +263,4 @@ const Allparents = () => {
     );
 };
 
-export default Allparents;
+export default Alltransactions;

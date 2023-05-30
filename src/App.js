@@ -22,6 +22,9 @@ import Sidebar from "./components/Sidebar";
 import PermanentDrawerLeft from "./components/ResponsiveSidebar";
 import Allparents from "./pages/parents/Allparents";
 import Allcustomers from "./pages/customers/Allcustomers";
+import CustomersView from "./pages/artworks/customersView";
+import Alltransactions from "./pages/transactions/transactionsList";
+import Withdraw from "./pages/withdraw/withdraw";
 
 function App() {
   const isLoginPage = window.location.pathname === "/" || window.location.pathname === "/customer/login" || window.location.pathname === "/parent/login";
@@ -51,7 +54,9 @@ function App() {
           <Route path="/pay/:id" element={<Checkout />} />
           <Route path="/parents" element={<Allparents />} />
           <Route path="/customers" element={<Allcustomers />} />
-
+          <Route path="/arts&crafts" element={<CustomersView />} />
+          <Route path="/transactions" element={<Alltransactions />} />
+          <Route path="/withdraw" element={<Withdraw />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -36,6 +36,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { ListItem, ListItemIcon, ListItemText, Collapse } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons';
 import DrawIcon from '@mui/icons-material/Draw';
+import withdrawImage from '../Icons/withdraw.png';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 const routes = [
     { path: '/', element: <AdminLogin /> },
@@ -116,23 +118,23 @@ export default function PermanentDrawerLeft() {
                     <ListItemIcon>
                         <DrawIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>
-                    <ListItemText primary="Atworks" />
+                    <ListItemText primary="Atworks & Crafts" />
                 </ListItem>
-                <ListItem button onClick={handleClick}>
+                <ListItem button onClick={handleClick} component={Link} to="/activation/requests">
                     <ListItemIcon>
                         <AdminPanelSettingsIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>
-                    <ListItemText primary="Admin" />
+                    <ListItemText primary="Requests" />
                 </ListItem>
-                <Menu
+                {/* <Menu
                     id="admin-menu"
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    {/* <MenuItem onClick={handleClose} component={Link} to="/">Login</MenuItem> */}
-                    <MenuItem onClick={handleClose} component={Link} to="/activation/requests">Requests</MenuItem>
-                </Menu>
+                    
+                    <MenuItem onClick={handleClose} component={Link} to="">Requests</MenuItem>
+                </Menu> */}
                 <ListItem button onClick={toggleDropdown}>
                     <ListItemIcon>
                         <PeopleIcon sx={{ color: "#00A86B" }} />
@@ -180,6 +182,19 @@ export default function PermanentDrawerLeft() {
             {/* <Divider /> */}
             <Divider sx={{ bgcolor: 'gray' }} />
             <List>
+                <ListItem button component={Link} to="/transactions" >
+                    <ListItemIcon>
+                        <ReceiptLongIcon sx={{ color: "#00A86B" }} />
+                    </ListItemIcon>
+                    <ListItemText primary="Transactions" />
+                </ListItem>
+                <ListItem button component={Link} to="/withdraw">
+                    <ListItemIcon>
+                        <img src={withdrawImage} alt="Icon" className="icon" height={22} width={25} />
+
+                    </ListItemIcon>
+                    <ListItemText primary="Withdraw" />
+                </ListItem>
                 <ListItem button component={Link} to="/settings" >
                     <ListItemIcon>
                         <SettingsIcon sx={{ color: "#00A86B" }} />

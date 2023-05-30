@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, IconButton } from '@material-ui/core';
 import { Edit, Delete } from '@material-ui/icons';
 import axios from "axios"
@@ -9,7 +10,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+        height: '100vh',
+        paddingLeft: '200px',
+        [theme.breakpoints.down('sm')]: {
+            paddingLeft: '0',
+        },
+
+    },
+}));
+
 const Allcustomers = () => {
+
+    const classes = useStyles();
 
     const [selectedCustomer, setSelectedCustomer] = useState({});
 
@@ -124,7 +139,7 @@ const Allcustomers = () => {
     }
 
     return (
-        <TableContainer component={Paper} style={{ paddingLeft: '200px' }}>
+        <TableContainer component={Paper} className={classes.gridContainer}>
             <Table>
                 <TableHead >
                     <TableRow >
@@ -156,24 +171,25 @@ const Allcustomers = () => {
                                 <IconButton color="secondary">
                                     <Delete onClick={() => handleDelete(customer.id)} />
                                 </IconButton>
-                                <ToastContainer
-                                    // theme="dark"
-                                    position="top-right"
-                                    autoClose={5000}
-                                    hideProgressBar={false}
-                                    newestOnTop={false}
-                                    closeOnClick
-                                    rtl={false}
-                                    pauseOnFocusLoss
-                                    draggable
-                                    pauseOnHover
-                                    theme="light"
-                                />
+
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
             </Table>
+            <ToastContainer
+                // theme="dark"
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
 
             <Modal open={open} onClose={handleClose} >
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
