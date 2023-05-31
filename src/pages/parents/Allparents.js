@@ -139,8 +139,6 @@ const Allparents = () => {
         }
     }
 
-
-
     return (
         <TableContainer component={Paper} className={classes.gridContainer}>
             <Table>
