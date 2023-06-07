@@ -28,7 +28,7 @@ const ArtworksCard = () => {
     const [artworks, setArtworks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:443/api/artworks/getartworks", {
+        fetch("https://3.83.201.151:7000/api/artworks/getartworks", {
             method: "GET",
         })
             .then((response) => response.json())
@@ -43,7 +43,7 @@ const ArtworksCard = () => {
 
     const handleDelete = async (artworkId) => {
         try {
-            const response = await axios.delete(`http://localhost:443/api/artworks/delete/${artworkId}`, {
+            const response = await axios.delete(`https://3.83.201.151:7000/api/artworks/delete/${artworkId}`, {
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -83,7 +83,7 @@ const ArtworksCard = () => {
                     <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
                         <CardMedia
                             component="img"
-                            image={`http://localhost:443/${artwork.image_url}`}
+                            image={`https://3.83.201.151:7000/${artwork.image_url}`}
                             alt={artwork.title}
                             sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                         />

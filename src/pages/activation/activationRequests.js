@@ -26,7 +26,7 @@ function ActivationRequests() {
 
     useEffect(() => {
         fetch(
-            "http://localhost:443/api/activation/activation-requests", {
+            "https://3.83.201.151:7000/api/activation/activation-requests", {
             method: "GET",
         })
             .then((response) => response.json())
@@ -44,7 +44,7 @@ function ActivationRequests() {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`http://localhost:443/api/activation/treat-request/${requestId}`, { status: 1 }, {
+            const response = await axios.post(`https://3.83.201.151:7000/api/activation/treat-request/${requestId}`, { status: 1 }, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -107,7 +107,7 @@ function ActivationRequests() {
                                     {request.userProfilePhoto ? (
                                         <img
                                             alt={request.name}
-                                            src={`http://localhost:443/${request.userProfilePhoto}`}
+                                            src={`https://3.83.201.151:7000/${request.userProfilePhoto}`}
                                             style={{
                                                 width: '60%',
                                                 height: '45px',
@@ -125,10 +125,10 @@ function ActivationRequests() {
                                 </Box>
                             </TableCell>
                             <TableCell style={{ width: '10px', textAlign: 'center' }}>
-                                <img src={`http://localhost:443/${request.frontNationalIdPhoto}`} alt="National ID (front)" style={{ width: "80%", height: "50px", objectFit: "cover", objectPosition: "center" }} />
+                                <img src={`https://3.83.201.151:7000/${request.frontNationalIdPhoto}`} alt="National ID (front)" style={{ width: "80%", height: "50px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '10px', textAlign: 'center' }}>
-                                <img src={`http://localhost:443/${request.backNationalIdPhoto}`} alt="National ID (back)" style={{ width: "80%", height: "50px", objectFit: "cover", objectPosition: "center" }} />
+                                <img src={`https://3.83.201.151:7000/${request.backNationalIdPhoto}`} alt="National ID (back)" style={{ width: "80%", height: "50px", objectFit: "cover", objectPosition: "center" }} />
                             </TableCell>
                             <TableCell style={{ width: '15%', textAlign: 'center' }}>{request.walletAddress}</TableCell>
 

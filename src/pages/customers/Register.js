@@ -90,7 +90,7 @@ function CustomerRegister() {
 
             try {
                 const response = await axios.post(
-                    "http://localhost:443/api/customer/user-register",
+                    "https://3.83.201.151:7000/api/customer/user-register",
                     formData,
                     {
                         headers: {
@@ -116,7 +116,7 @@ function CustomerRegister() {
                     await new Promise((resolve) => setTimeout(resolve, 6000));
 
                     // Fetch the user's account using the customer ID
-                    const accountResponse = await axios.get(`http://localhost:443/api/accounts/account/user/${customerId}`);
+                    const accountResponse = await axios.get(`https://3.83.201.151:7000/api/accounts/account/user/${customerId}`);
                     const account = accountResponse.data;
 
                     if (account) {
@@ -161,7 +161,7 @@ function CustomerRegister() {
 
     //         try {
     //             const response = await axios.post(
-    //                 "http://localhost:443/api/customer/user-register",
+    //                 "https://3.83.201.151:7000/api/customer/user-register",
     //                 formData,
     //                 {
     //                     headers: {

@@ -36,7 +36,7 @@ function SendRequest() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:443/api/activation/send-request/${ID}`);
+                const response = await axios.get(`https://3.83.201.151:7000/api/activation/send-request/${ID}`);
                 const data = response.data;
                 console.log(data)
                 setFormData({
@@ -68,7 +68,7 @@ function SendRequest() {
             form.append("userProfilePhoto", userProfilePhoto);
 
             try {
-                await axios.post(`http://localhost:443/api/activation/send-request/${ID}`, form, {
+                await axios.post(`https://3.83.201.151:7000/api/activation/send-request/${ID}`, form, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         // Authorization: `Bearer ${localStorage.getItem("token")} `,

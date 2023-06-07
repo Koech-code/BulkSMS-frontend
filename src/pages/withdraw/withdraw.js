@@ -50,7 +50,7 @@ function Withdraw() {
 
     const handleWithdrawal = async () => {
         try {
-            const response = await axios.post('http://localhost:443/api/v1.1/wallet/withdraw', {
+            const response = await axios.post('https://3.83.201.151:7000/api/v1.1/wallet/withdraw', {
                 amount,
                 headers: {
                     "Content-Type": "application/json",

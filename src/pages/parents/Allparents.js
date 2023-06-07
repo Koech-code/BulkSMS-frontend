@@ -45,7 +45,7 @@ const Allparents = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:443/api/parent/parents", {
+        fetch("https://3.83.201.151:7000/api/parent/parents", {
             method: "GET",
         })
             .then((response) => response.json())
@@ -62,7 +62,7 @@ const Allparents = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`http://localhost:443/api/parent/update/${selectedParent.id}`, {
+            const response = await axios.put(`https://3.83.201.151:7000/api/parent/update/${selectedParent.id}`, {
                 name: selectedParent.name,
                 phoneNumber: selectedParent.phoneNumber,
                 email: selectedParent.email,
@@ -105,7 +105,7 @@ const Allparents = () => {
 
     const handleDelete = async (parentId) => {
         try {
-            const response = await axios.delete(`http://localhost:443/api/parent/delete/${parentId}`, {
+            const response = await axios.delete(`https://3.83.201.151:7000/api/parent/delete/${parentId}`, {
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: `Bearer ${localStorage.getItem("token")}`

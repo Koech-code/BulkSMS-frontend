@@ -44,7 +44,7 @@ const Allcustomers = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:443/api/customer/customers", {
+        fetch("https://3.83.201.151:7000/api/customer/customers", {
             method: "GET",
         })
             .then((response) => response.json())
@@ -61,7 +61,7 @@ const Allcustomers = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`http://localhost:443/api/customer/update/${selectedCustomer.id}`, {
+            const response = await axios.put(`https://3.83.201.151:7000/api/customer/update/${selectedCustomer.id}`, {
                 name: selectedCustomer.name,
                 phoneNumber: selectedCustomer.phoneNumber,
                 email: selectedCustomer.email,
@@ -103,7 +103,7 @@ const Allcustomers = () => {
 
     const handleDelete = async (customerId) => {
         try {
-            const response = await axios.delete(`http://localhost:443/api/customer/delete/${customerId}`, {
+            const response = await axios.delete(`https://3.83.201.151:7000/api/customer/delete/${customerId}`, {
                 headers: {
                     "Content-Type": "application/json",
                     // Authorization: `Bearer ${localStorage.getItem("token")}`
