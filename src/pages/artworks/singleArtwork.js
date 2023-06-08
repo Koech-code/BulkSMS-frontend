@@ -9,7 +9,7 @@ const ArtworkView = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:443/api/artworks/artwork/${id}`, {
+        fetch(`https://3.83.201.151:7000/api/artworks/artwork/${id}`, {
             method: "GET",
         })
             .then((response) => response.json())
@@ -37,7 +37,7 @@ const ArtworkView = () => {
                 <CardMedia
                     component="img"
                     height="200"
-                    image={`http://localhost:443/${artwork.image_url}`}
+                    image={`https://3.83.201.151:7000/${artwork.image_url}`}
                     alt={artwork.title}
                 />
                 <CardContent>

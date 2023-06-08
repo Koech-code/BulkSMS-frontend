@@ -73,7 +73,7 @@ export default function PermanentDrawerLeft() {
         const fetchBalance = async () => {
             try {
                 const response = await axios.post(
-                    'http://localhost:443/api/v1.1/wallet/balance',
+                    'https://3.83.201.151:7000/api/v1.1/wallet/balance',
                     { walletAddress },
                     {
                         headers: {

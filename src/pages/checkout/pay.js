@@ -19,7 +19,7 @@ const Checkout = () => {
     useEffect(() => {
         const userId = localStorage.getItem('userId');
 
-        fetch(`http://localhost:443/api/artworks/artwork/${id}`, {
+        fetch(`https://3.83.201.151:7000/api/artworks/artwork/${id}`, {
             method: 'GET',
         })
             .then((response) => response.json())
@@ -43,7 +43,7 @@ const Checkout = () => {
             to,
             amount: artwork.price,
         };
-        fetch(`http://localhost:443/api/v1.1/wallet/pay/${id}`, {
+        fetch(`https://3.83.201.151:7000/api/v1.1/wallet/pay/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const Checkout = () => {
                 // Use the userId variable as needed
                 console.log('User ID:', userId);
 
-                const response = await fetch(`http://localhost:443/api/accounts/account/user/${userId}`, {
+                const response = await fetch(`https://3.83.201.151:7000/api/accounts/account/user/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const Checkout = () => {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
             <Card sx={{ maxWidth: 600 }}>
-                <CardMedia component="img" height="200" image={`http://localhost:443/${artwork.image_url}`} alt={artwork.title} />
+                <CardMedia component="img" height="200" image={`https://3.83.201.151:7000/${artwork.image_url}`} alt={artwork.title} />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {artwork.title}

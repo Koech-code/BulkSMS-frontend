@@ -70,7 +70,7 @@ function ParentsRegister() {
             formData.append("name", name);
 
             try {
-                const response = await axios.post("http://localhost:443/api/parent/register", formData, {
+                const response = await axios.post("https://3.83.201.151:7000/api/parent/register", formData, {
                     headers: {
                         "Content-Type": "application/json",
                     },

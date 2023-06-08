@@ -49,7 +49,7 @@ function Login() {
             formData.append("password", password);
 
             try {
-                const response = await axios.post("http://localhost:443/api/parent/login", formData, {
+                const response = await axios.post("https://3.83.201.151:7000/api/parent/login", formData, {
                     headers: {
                         "Content-Type": "application/json",
                     },

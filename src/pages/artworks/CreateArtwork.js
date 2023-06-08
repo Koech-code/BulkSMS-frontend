@@ -19,7 +19,7 @@ const Artworks = ({ childId }) => {
         formData.append("price", price);
 
         try {
-            await axios.post(`http://localhost:443/api/artworks/child/${childId}/artwork`, formData, {
+            await axios.post(`https://3.83.201.151:7000/api/artworks/child/${childId}/artwork`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem("token")} `,

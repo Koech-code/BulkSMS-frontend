@@ -7,7 +7,7 @@ function AccountStatus() {
 
     useEffect(() => {
         fetch(
-            "http://localhost:443/api/accounts/all", {
+            "https://3.83.201.151:7000/api/accounts/all", {
             method: "GET",
         })
             .then((response) => response.json())

@@ -16,7 +16,7 @@ const ArtworkCheckoutPage = ({ artworks }) => {
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Card sx={{ maxWidth: 600, m: 2 }}>
-                <CardMedia component="img" height="400" image={`http://localhost:443/${selectedArtwork.image_url}`} alt={selectedArtwork.title} />
+                <CardMedia component="img" height="400" image={`https://3.83.201.151:7000/${selectedArtwork.image_url}`} alt={selectedArtwork.title} />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         {selectedArtwork.title}
