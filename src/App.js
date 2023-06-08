@@ -25,9 +25,10 @@ import Allcustomers from "./pages/customers/Allcustomers";
 import CustomersView from "./pages/artworks/customersView";
 import Alltransactions from "./pages/transactions/transactionsList";
 import Withdraw from "./pages/withdraw/withdraw";
+import Footer from "./components/Footer";
 
 function App() {
-  const isLoginPage = window.location.pathname === "/" || window.location.pathname === "/customer/login" || window.location.pathname === "/parent/login";
+  const isLoginPage = window.location.pathname === "/" || window.location.pathname === "/customer/login" || window.location.pathname === "/parent/login" || window.location.pathname === "/footer";
 
   return (
     <div className="max-w-screen my-0 ">
@@ -57,7 +58,9 @@ function App() {
           <Route path="/arts&crafts" element={<CustomersView />} />
           <Route path="/transactions" element={<Alltransactions />} />
           <Route path="/withdraw" element={<Withdraw />} />
+          {/* <Route path="/footer" element={<Footer />} /> */}
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
