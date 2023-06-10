@@ -64,9 +64,8 @@ const AdminLogin = () => {
             const formData = new FormData();
             formData.append("email", email);
             formData.append("password", password);
-
             try {
-                const response = await axios.post("https://3.83.201.151:7000/admin/auth/login", formData, {
+                const response = await axios.post("http://localhost:443/admin/auth/login", formData, {
                     headers: {
                         "Content-Type": "application/json",
                     },

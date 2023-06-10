@@ -106,6 +106,14 @@ export default function PermanentDrawerLeft() {
         setMobileOpen(!mobileOpen);
     };
 
+    const handleLogout = () => {
+        // Remove the token from local storage
+        localStorage.removeItem('token');
+
+        // Redirect to the login page
+        window.location.href = '/';
+    };
+
     const routesOutlet = useRoutes(routes);
 
     const drawer = (
@@ -201,7 +209,7 @@ export default function PermanentDrawerLeft() {
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
                 </ListItem>
-                <ListItem button >
+                <ListItem button onclick={handleLogout}>
                     <ListItemIcon>
                         <LogoutIcon sx={{ color: "#00A86B" }} />
                     </ListItemIcon>

@@ -44,7 +44,7 @@ const Allcustomers = () => {
 
 
     useEffect(() => {
-        fetch("https://3.83.201.151:7000/api/customer/customers", {
+        fetch("http://localhost:443/api/customer/customers", {
             method: "GET",
         })
             .then((response) => response.json())
@@ -61,7 +61,7 @@ const Allcustomers = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.put(`https://3.83.201.151:7000/api/customer/update/${selectedCustomer.id}`, {
+            const response = await axios.put(`http://localhost:443/api/customer/update/${selectedCustomer.id}`, {
                 name: selectedCustomer.name,
                 phoneNumber: selectedCustomer.phoneNumber,
                 email: selectedCustomer.email,
@@ -230,7 +230,7 @@ const Allcustomers = () => {
                             margin="normal"
                         />
                         <TextField
-                            label="National ID number"
+                            label="Location"
                             value={selectedCustomer.location || ""}
                             onChange={(e) => setSelectedCustomer({ ...selectedCustomer, location: e.target.value })}
                             fullWidth
