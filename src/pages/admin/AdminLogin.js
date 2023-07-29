@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Logo = require("../../BosskidsLogo.jpg");
+const Logo = require("../../symogas-logo.png");
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -129,7 +129,7 @@ const AdminLogin = () => {
       className={classes.gridContainer}
     >
       <Grid item xs={12} sm={8} md={6} lg={4}>
-        <Card>
+        <Card style={{ backgroundColor: "#E0E0E0" }}>
           <CardHeader
             title={
               <Typography

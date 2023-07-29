@@ -1,4 +1,6 @@
+import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import useTokenExpirationCheck from "./pages/useTokenExpirationCheck"; // Import the hook
 
 import CustomerRegister from "./pages/customers/Register";
 import CustomerLogin from "./pages/customers/Login";
@@ -12,6 +14,8 @@ import MyEditor from "./pages/admin/sendMessage";
 import Footer from "./components/Footer";
 
 function App() {
+  // useTokenExpirationCheck(); // Use the token expiration check hook
+
   const isLoginPage =
     window.location.pathname === "/" ||
     window.location.pathname === "/customer/login" ||
