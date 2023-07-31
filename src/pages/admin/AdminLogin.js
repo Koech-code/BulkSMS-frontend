@@ -62,7 +62,7 @@ const AdminLogin = () => {
       formData.append("password", password);
       try {
         const response = await axios.post(
-          "https://7769-102-219-208-66.ngrok-free.app/api/admin/login",
+          "https://5a2b-102-219-208-66.ngrok-free.app/api/admin/login",
           formData,
           {
             headers: {

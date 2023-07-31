@@ -173,7 +173,7 @@ const Allcustomers = () => {
 
       try {
         const response = await axios.post(
-          "https://7769-102-219-208-66.ngrok-free.app/api/admit/contact", // Update the endpoint URL for posting customer contacts
+          "https://5a2b-102-219-208-66.ngrok-free.app/api/admit/contact", // Update the endpoint URL for posting customer contacts
           formData,
           {
             headers: {
@@ -252,7 +252,7 @@ const Allcustomers = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://7769-102-219-208-66.ngrok-free.app/api/customers"
+          "https://5a2b-102-219-208-66.ngrok-free.app/api/customers"
         );
         if (response.data && response.data.success === "success") {
           setContacts(response.data.contacts);

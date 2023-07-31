@@ -96,7 +96,7 @@ const MyEditor = () => {
     setMessage(formattedContent);
 
     const endpoint =
-      "https://7769-102-219-208-66.ngrok-free.app/api/messages/compose";
+      "https://5a2b-102-219-208-66.ngrok-free.app/api/messages/compose";
 
     // Include authorization headers in the request
     const headers = {
