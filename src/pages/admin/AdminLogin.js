@@ -9,10 +9,15 @@ import {
   Button,
   Grid,
   Typography,
+  IconButton,
+  InputAdornment,
 } from "@material-ui/core";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
+
 const Logo = require("../../symogas-logo.png");
+const BASE_API_URL = process.env.REACT_APP_BASE_URL;
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -32,6 +37,11 @@ const AdminLogin = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handlePasswordToggle = () => {
+    setShowPassword(!showPassword);
+  };
 
   const validateForm = () => {
     let errors = {};
@@ -62,7 +72,7 @@ const AdminLogin = () => {
       formData.append("password", password);
       try {
         const response = await axios.post(
-          "https://5a2b-102-219-208-66.ngrok-free.app/api/admin/login",
+          `${BASE_API_URL}/api/admin/login`,
           formData,
           {
             headers: {
@@ -169,7 +179,7 @@ const AdminLogin = () => {
                     sx={{ m: 2 }}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <Typography variant="body1"></Typography>
                   <TextField
                     fullWidth
@@ -181,6 +191,28 @@ const AdminLogin = () => {
                     helperText={errors.password}
                     variant="outlined"
                     sx={{ m: 2 }}
+                  />
+                </Grid> */}
+                <Grid item xs={12}>
+                  <Typography variant="body1"></Typography>
+                  <TextField
+                    fullWidth
+                    label="Password"
+                    variant="outlined"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(pass) => setPassword(pass.target.value)}
+                    error={errors.password ? true : false}
+                    helperText={errors.password}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={handlePasswordToggle}>
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
