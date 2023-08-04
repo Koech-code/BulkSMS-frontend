@@ -24,6 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Key, Edit, Delete, Lock } from "@mui/icons-material";
 import { TableContainer } from "@mui/material";
+const BASE_API_URL = process.env.REACT_APP_BASE_URL;
 
 const Logo = require("../../BosskidsLogo.jpg");
 
@@ -173,7 +174,7 @@ const Allcustomers = () => {
 
       try {
         const response = await axios.post(
-          "https://5a2b-102-219-208-66.ngrok-free.app/api/admit/contact", // Update the endpoint URL for posting customer contacts
+          `${BASE_API_URL}/api/admit/contact`, // Update the endpoint URL for posting customer contacts
           formData,
           {
             headers: {
@@ -251,9 +252,7 @@ const Allcustomers = () => {
     // Function to fetch data from the API and update the state
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://5a2b-102-219-208-66.ngrok-free.app/api/customers"
-        );
+        const response = await axios.get(`${BASE_API_URL}/api/customers`);
         if (response.data && response.data.success === "success") {
           setContacts(response.data.contacts);
         } else {

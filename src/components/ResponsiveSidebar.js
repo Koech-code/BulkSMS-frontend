@@ -35,6 +35,9 @@ import {
 } from "@material-ui/core";
 import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const routes = [
   { path: "/", element: <AdminLogin /> },
   { path: "/customer", element: <CustomerLogin /> },
@@ -61,9 +64,7 @@ export default function PermanentDrawerLeft() {
   };
 
   const theme = useTheme();
-  const [walletAddress, setWalletAddress] = useState(
-    "1WA6yAdy7kZW4pxziJv6aYFyyiXU2zihEEMELG"
-  );
+  const [walletAddress, setWalletAddress] = useState("");
   const [balance, setBalance] = useState(null);
 
   useEffect(() => {
@@ -106,9 +107,21 @@ export default function PermanentDrawerLeft() {
   const handleLogout = () => {
     // Remove the token from local storage
     localStorage.removeItem("token");
+    toast.success("Good bye 😊", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
-    // Redirect to the login page
-    window.location.href = "/";
+    setTimeout(() => {
+      // Redirect to the login page after 3 seconds
+      window.location.href = "/";
+    }, 3000);
   };
 
   const routesOutlet = useRoutes(routes);
@@ -145,7 +158,7 @@ export default function PermanentDrawerLeft() {
       {/* <Divider /> */}
       <Divider sx={{ bgcolor: "gray" }} />
       <List>
-        <ListItem button onclick={handleLogout}>
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon sx={{ color: "#00A86B" }} />
           </ListItemIcon>
@@ -239,7 +252,7 @@ export default function PermanentDrawerLeft() {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               // width: { drawerWidth },
-              backgroundColor: "black",
+              backgroundColor: "#3C3C3C",
               color: "white",
             },
           }}
@@ -252,6 +265,18 @@ export default function PermanentDrawerLeft() {
         <Toolbar />
         {routesOutlet}
       </Box>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Box>
   );
 }

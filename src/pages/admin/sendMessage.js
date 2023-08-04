@@ -15,6 +15,7 @@ import { stateToHTML } from "draft-js-export-html";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+const BASE_API_URL = process.env.REACT_APP_BASE_URL;
 
 const MyEditor = () => {
   const [editorState, setEditorState] = useState(() =>
@@ -95,8 +96,7 @@ const MyEditor = () => {
     // Update the 'message' state with the formatted content
     setMessage(formattedContent);
 
-    const endpoint =
-      "https://5a2b-102-219-208-66.ngrok-free.app/api/messages/compose";
+    const endpoint = `${BASE_API_URL}/api/messages/compose`;
 
     // Include authorization headers in the request
     const headers = {
